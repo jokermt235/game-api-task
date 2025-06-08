@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Pytest
+.cache/
+*.pytest_cache/
+htmlcov/
+.coverage
+.tox/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Environment files
+.env
+.env.*
+
+# mypy / pyright / lint
+.mypy_cache/
+.pyright/
+.pyre/
+ruff_cache/
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build
+build/
+dist/
+*.egg-info/
+
+# alembic (optional - if not under version control)
+alembic/versions/*.pyc
+alembic/versions/__pycache__/
+
