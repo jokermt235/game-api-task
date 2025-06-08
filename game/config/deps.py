@@ -1,5 +1,5 @@
 from functools import lru_cache
-from game.config.settings import Settings
+from config.settings import Settings
 
 @lru_cache()
 def get_settings() -> Settings:

@@ -1,8 +1,8 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 import os
 
 class Settings(BaseSettings):
-  database_url: str = "sqlite+aiosqlite:///./test.db"
+  database_url: str = "sqlite+aiosqlite:///./game.db"
   log_db_url: str | None = None
   environment: str = "development"
 

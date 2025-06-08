@@ -1,8 +1,13 @@
 from fastapi import FastAPI
-#from app.api.v1 import user  # если у тебя есть свои роутеры
+from api.v1  import tournament as tournament_router 
 
-app = FastAPI()
+app = FastAPI(
+  title="Tournament API",
+  version="1.0.0"
+)
+
+app.include_router(tournament_router.router, prefix="/api/v1")
 
 @app.get("/")
 def read_root():
-  return {"message": "Hello, world!"}
+  return {"message": "Tournament api starting to accept connections"}

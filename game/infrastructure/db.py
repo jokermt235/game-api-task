@@ -1,7 +1,8 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy.orm import DeclarativeBase
 from fastapi import Depends
-from game.config.settings import Settings
-from game.config.deps import get_settings
+from config.settings import Settings
+from config.deps import get_settings
 
 engine_cache = {}
 
@@ -16,3 +17,6 @@ def get_session(settings: Settings = Depends(get_settings)) -> AsyncSession:
   engine = get_engine(settings)
   session_maker = async_sessionmaker(engine, expire_on_commit=False)
   return session_maker()
+
+class Base(DeclarativeBase):
+  pass
