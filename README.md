@@ -17,7 +17,7 @@
 
 ## 🐳 Запуск в Docker
 
-### 1. Cклонируйте проект
+### 1. Cклонируй проект
 
 ```bash
 git clone https://github.com/jokermt235/game-api-task.git
@@ -34,8 +34,10 @@ docker exec -it game-manager /bin/sh
 и запустить миграции если нужно сгенерить таблицы
 alembic revision --autogenerate -m "initial"
 alembic upgrade head
+```
+### 2. Локально
 
-## LOCAL
+```bash
 Для  прогона  используй git хуки
 
 pre-commit install
