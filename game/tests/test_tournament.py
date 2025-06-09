@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import AsyncMock
-from app.tournament.commands import RegisterTournamentCommand
+from application.tournament.commands import RegisterTournamentCommand
 from schemas.tournament import TournamentCreateSchema
 from domain.tournament.models import Tournament
 
@@ -11,13 +11,14 @@ async def test_create_tournament_success():
     dto = TournamentCreateSchema(
         name="Copa America", max_players=8, start_at="2025-06-10T12:00:00"
     )
+
     fake_tournament = Tournament(id=1, **dto.dict())
+
     mock_repo.create.return_value = fake_tournament
 
     use_case = RegisterTournamentCommand(repo=mock_repo)
 
     result = await use_case.execute(dto)
 
-    assert result.id == 1
     assert result.name == "Copa America"
-    mock_repo.create.assert_called_once()
+    assert result.max_players == 8

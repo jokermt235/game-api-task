@@ -6,6 +6,7 @@ from sqlalchemy.engine import Connection
 from alembic import context
 
 from config.settings import Settings
+import infrastructure.init_models  # noqa
 from infrastructure.db import Base
 
 config = context.config

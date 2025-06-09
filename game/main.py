@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from api.v1 import tournament as tournament_router
 
-app = FastAPI(title="Tournament API", version="1.0.0")
+app = FastAPI(title="Tournament API", version="1.0.0", redirect_slashes=False)
 
 app.include_router(tournament_router.router, prefix="/api/v1")
 
