@@ -1,51 +1,32 @@
-[project]
+[tool.poetry]
 name = "game-api"
 version = "0.1.0"
 description = "Sample api application manage tournaments"
-requires-python = ">=3.11"
-dependencies = [
-  "fastapi",
-  "uvicorn[standard]",
-  "sqlalchemy[asyncio]>=2.0.0",
-  "asyncpg",
-  "alembic",
-  "pydantic>=2.0",
-  "python-dotenv",
-  "gunicorn"
-]
+authors = ["Mutalip jokermt235@yandex.com"]
+package-mode = false
+packages = [{ include = "game" }]  # имя папки с кодом
 
-[project.optional-dependencies]
-dev = [
-  "ruff",
-  "black",
-  "mypy",
-  "pytest",
-  "pytest-asyncio",
-  "httpx",               
-  "types-python-dotenv"
-]
+[tool.poetry.dependencies]
+python = ">=3.11"
+fastapi = "*"
+uvicorn = { extras = ["standard"], version = "*" }
+sqlalchemy = { extras = ["asyncio"], version = ">=2.0.0" }
+asyncpg = "*"
+alembic = "*"
+pydantic = ">=2.0"
+python-dotenv = "*"
+gunicorn = "*"
+pydantic-settings = "^2.0"
 
-[tool.black]
-line-length = 88
-target-version = ['py311']
-
-[tool.ruff]
-line-length = 88
-target-version = "py311"
-select = ["E", "F", "I", "B"]
-fix = true
-
-[tool.mypy]
-python_version = "3.11"
-plugins = ["sqlalchemy.ext.mypy.plugin"]
-strict = true
-ignore_missing_imports = true
-
-[tool.pytest.ini_options]
-addopts = "-ra -q"
-testpaths = ["tests"]
-asyncio_mode = "auto"
+[tool.poetry.group.dev.dependencies]
+ruff = "*"
+black = "*"
+mypy = "*"
+pytest = "*"
+pytest-asyncio = "*"
+httpx = "*"
+pre-commit = "^3.5.0"
 
 [build-system]
-requires = ["setuptools"]
-build-backend = "setuptools.build_meta"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

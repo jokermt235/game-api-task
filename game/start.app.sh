@@ -5,7 +5,6 @@ set -o pipefail
 set -o nounset
 set -e
 
-# Применить миграции
 echo "🔄 Running migrations..."
 alembic upgrade head
 

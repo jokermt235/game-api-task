@@ -8,12 +8,12 @@ from domain.tournament.models import Tournament
 
 router = APIRouter(prefix="/tournaments", tags=["tournaments"])
 
+
 @router.post("/", response_model=TournamentReadSchema)
 async def create_tournament_api(
-  data: TournamentCreateSchema,
-  session: AsyncSession = Depends(get_session)
+    data: TournamentCreateSchema, session: AsyncSession = Depends(get_session)
 ) -> Tournament:
-  repo = TournamentRepository(session)
-  command = RegisterTournamentCommand(repo)
-  tournament = await command.execute(data)
-  return tournament
+    repo = TournamentRepository(session)
+    command = RegisterTournamentCommand(repo)
+    tournament = await command.execute(data)
+    return tournament

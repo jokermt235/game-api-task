@@ -54,3 +54,5 @@ dist/
 alembic/versions/*.pyc
 alembic/versions/__pycache__/
 
+#postgres
+data/
