@@ -1,15 +1,8 @@
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import String, Integer, Table, ForeignKey, Column
+from sqlalchemy import String, Integer, ForeignKey
 from infrastructure.db import Base
 from datetime import datetime
 from sqlalchemy import TIMESTAMP
-
-tournament_users = Table(
-    "tournament_users",
-    Base.metadata,
-    Column("tournament_id", ForeignKey("tournaments.id"), primary_key=True),
-    Column("user_id", ForeignKey("users.id"), primary_key=True),
-)
 
 
 class User(Base):
@@ -18,8 +11,11 @@ class User(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String)
     email: Mapped[str] = mapped_column(String)
+    tournament_users: Mapped[list["TournamentUser"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
     tournaments: Mapped[list["Tournament"]] = relationship(
-        "Tournament", secondary="tournament_users", back_populates="users"
+        secondary="tournament_users", back_populates="users", viewonly=True
     )
 
 
@@ -31,6 +27,24 @@ class Tournament(Base):
     max_players: Mapped[int] = mapped_column(Integer, nullable=False)
     start_at: Mapped[datetime] = mapped_column(TIMESTAMP(timezone=True), nullable=False)
 
-    users: Mapped[list[User]] = relationship(
-        "User", secondary=tournament_users, back_populates="tournaments"
+    users: Mapped[list["User"]] = relationship(
+        secondary="tournament_users", back_populates="tournaments", viewonly=True
     )
+
+    tournament_users: Mapped[list["TournamentUser"]] = relationship(
+        back_populates="tournament", cascade="all, delete-orphan"
+    )
+
+
+class TournamentUser(Base):
+    __tablename__ = "tournament_users"
+
+    tournament_id: Mapped[int] = mapped_column(
+        ForeignKey("tournaments.id", ondelete="CASCADE"), primary_key=True
+    )
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), primary_key=True
+    )
+
+    tournament: Mapped["Tournament"] = relationship(back_populates="tournament_users")
+    user: Mapped["User"] = relationship(back_populates="tournament_users")

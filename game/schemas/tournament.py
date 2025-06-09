@@ -13,3 +13,8 @@ class TournamentReadSchema(BaseModel):
     name: str
     max_players: int
     start_at: datetime
+
+
+class UserRegisterSchema(BaseModel):
+    tournament_id: int
+    user_id: int
